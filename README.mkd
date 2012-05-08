@@ -45,9 +45,14 @@ Jockey is written in Ruby. 1.9.2 or higher is required.
     $ git clone https://github.com/sorah/jockey.git
     $ cd jockey
     $ bundle install
-    $ rackup
+
+### Launch
+
+    $ bundle exec ./start
 
 <http://localhost:9292/>
+
+(__NOTE:__ we should do `thin -R config.ru` instead of `rackup` because of Sinatra's bug.)
 
 ## Features
 
