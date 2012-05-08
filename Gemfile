@@ -24,7 +24,7 @@ gem "thin"
 gem "sprockets"
 
 # http://twitter.com/#!/r7kamura/status/199895369457479683
-# $B;O$^$j$N8f;02H(B - the three beginnings
+# 始まりの御三家 - the three beginnings
 gem "haml"
 gem "sass"
 gem "coffee-script"
