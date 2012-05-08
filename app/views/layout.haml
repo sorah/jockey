@@ -1,0 +1,23 @@
+!!! 5
+%html
+  %head
+    %meta{charset: "UTF-8"}
+    %link{rel: 'stylesheet', href: '/styles/jockey.css', type: 'text/css'}
+    %script{src: 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'}
+    %script{src: "/scripts/jockey.js?#{Time.now.to_f}"}
+    %script{src: '/scripts/jquery.pjax.js'}
+    %title Jockey
+  %body
+    %div#container
+      %header
+        %h1 Jockey
+
+      %section#playing
+        = haml :song, layout: false, locals: {song: Jockey::Player.playing}
+
+      %nav#search
+        %form#search_form{action: "/search", method: "GET"}
+          %input#search_box{type: "text", name: "q", placeholder: "Search...", value: search ||= ""}
+
+      %section#content
+        = yield

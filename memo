@@ -1,0 +1,43 @@
+http://hints.macworld.com/article.php?story=20040830035448525
+
+tell application "iTunes"
+	if selection is not {} then
+		my ps_play_next_ref(item 1 of selection)
+	end if
+end tell
+
+-- Append Ref to Party Shuffle after current song
+on ps_play_next_ref(theTrackReference)
+	tell application "iTunes"
+		set thePlaylist to playlist "Party Shuffle"
+		try
+			play thePlaylist
+			set isPlaying to container of current track is thePlaylist
+			if (isPlaying) then set startIndex to index of current track
+		on error
+			set isPlaying to false
+			set startIndex to 0
+		end try
+		tell thePlaylist
+			set oldTracks to a reference to (every track whose ¬
+				index > startIndex and ¬
+				index is less than or equal to (count tracks))
+      -- !!! <= is needed to keep added tracks
+			duplicate theTrackReference to thePlaylist -- add tracks to the last
+			duplicate oldTracks -- add already existing tracks
+			delete oldTracks -- delete already existing tracks
+		end tell
+	end tell
+end ps_play_next_ref
+
+l = app.tracks['Q/P'].location.get
+
+playlist = app.playlists['iTunes DJ']
+offset = app.current_track.index.get
+
+tracks = playlist.tracks[offset+1, playlist.tracks.get.size]
+tracks = playlist.tracks[Appscript.its.index.gt(offset).and(Appscript.its.index.le(playlist.tracks.get.size))]
+track = app.tracks['Q/P']
+
+track.duplicate(to: app.playlists['iTunes DJ'])
+playlist.delete(tracks)

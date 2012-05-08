@@ -1,0 +1,21 @@
+%section#songs
+  %h2 SONGS
+  = haml :songs, layout: false, locals: {songs: @result[:songs]}
+
+%section#albums
+  %h2 ALBUMS
+  - @result[:albums].each_with_index do |album, i|
+    %section{class: "album#{i.even? ? " even" : ""}"}
+      %div.artwork
+        %img{src: "/artworks/album/#{u album}.png"}
+      %div.middle_wrap
+        %div.song_info
+          %div.song_name=h album
+
+%section#artists
+  %h2 ARTISTS
+  - @result[:artists].each_with_index do |artist, i|
+    %section{class: "artist#{i.even? ? " even" : ""}"}
+      %div.middle_wrap
+        %div.song_info
+          %div.song_name=h artist

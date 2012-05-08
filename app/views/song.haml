@@ -1,0 +1,12 @@
+%section{class: "song#{(even ||= nil) ? " even" : ""}"}
+  - song = OpenStruct.new(name: "", id: "DUMMY", artist: "") unless song
+  %div.artwork
+    %img{src: "/artworks/#{song.id}.png"}
+  %div.middle_wrap
+    %div.song_info
+      %div.song_name=h song.name
+      %div.song_artist=h song.artist
+      %div.song_album=h song.album
+  - if enque ||= false
+    %div.enque_wrap
+      %a.enque{href: "/enque/#{song.id}", data: {song: song.id}} +

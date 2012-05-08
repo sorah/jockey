@@ -1,0 +1,32 @@
+* views
+
+  * layout
+
+    * menu
+
+  * design
+
+    * better
+    * responsive
+
+* browse
+
+  * /browse
+  * /album/:name
+  * /artist/:name
+
+  * link from /search
+
+* pjax
+* cache
+
+* script
+
+  * notification
+  * select
+  * shortcut key
+
+* authorize
+* + button when not in queue page: change text to check?
+
+* test

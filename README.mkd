@@ -1,0 +1,93 @@
+# Jockey - play music
+
+__NOTE:__ still in development! most features are not implemented yet!
+Yes, the following things are the FUTURE.
+
+Jockey is simple iTunes DJ controller on the web.
+
+Alternative to [play/play](https://github.com/play/play).
+Comparing below.
+
+## Background
+
+In a small hackathon, I provided BGM from my iTunes (using iTunes DJ).
+
+Apple's Remote app for iOS device provided us a way to add songs for members.
+But we're writing code. you know, we want a way to add song on my machine.
+
+Yes, we already have a way - GitHub's [play](https://github.com/play/play).
+I think this is awesome. But it's little complicated.
+
+I've just wanted to provide controlling iTunes DJ from web.
+
+(Continued to "Why not play?" in below...)
+
+## The Setup
+
+### OS X and iTunes
+
+Jockey is designed for iTunes DJ.
+
+1. Go iTunes' preferences, check 'iTunes DJ'.
+2. Open 'iTunes DJ' in the source pane, then click "Settings".
+3. Make sure __"Voting" is disabled__.
+
+![](https://img.skitch.com/20120506-f5b263ncc711qeuypp5bd29pnw.png)
+
+### Ruby
+
+Jockey is written in Ruby. 1.9.2 or higher is required.
+
+1.9.3 is highly recommended.
+
+### Install
+
+    $ git clone https://github.com/sorah/jockey.git
+    $ cd jockey
+    $ bundle install
+    $ rackup
+
+<http://localhost:9292/>
+
+## Features
+
+* Control iTunes DJ from web
+* Realtime notification (using HTML5 EventSource)
+* Voting songs
+
+  * Powerful browsing
+
+* APIs (of course!)
+
+## Why not play?
+
+[play](https://github.com/play/play) has the following problems (I think):
+
+* Using [Pusher](http://pusher.com/)
+
+  * Pusher, not bad. It's awesome.
+  * but there are limitation: 20 connections, 100000 messages / day in free account... (See [Pricing](http://pusher.com/pricing) page)
+
+* Why use Redis?
+
+  * I don't think play doesn't need redis.
+
+I've wanted just control my iTunes DJ, so conside using play if you want more feature.
+
+But, some feature requests may be accepted. give me pull request :)
+
+## Author
+
+* Shota Fukumori (sora\_h) <http://sorah.jp/> ([github](https://github.com/sorah))
+
+## License
+
+MIT License:
+
+>Copyright (c) Shota Fukumori (sora\_h) <http://sorah.jp/>
+
+>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

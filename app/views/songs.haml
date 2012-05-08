@@ -1,0 +1,2 @@
+- songs.each_with_index do |song, i|
+  = haml :song, locals: {song: song, even: i.even?, enque: true}

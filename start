@@ -1,0 +1,2 @@
+#!/bin/sh
+thin -R `dirname $0`/config.ru start
