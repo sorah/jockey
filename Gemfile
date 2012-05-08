@@ -1,3 +1,4 @@
+# coding: utf-8
 source "http://rubygems.org"
 
 group :test do
@@ -22,6 +23,8 @@ gem "thin"
 
 gem "sprockets"
 
+# http://twitter.com/#!/r7kamura/status/199895369457479683
+# 始まりの御三家 - the three beginnings
 gem "haml"
 gem "sass"
 gem "coffee-script"
