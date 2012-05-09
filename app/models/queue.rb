@@ -60,15 +60,15 @@ module Jockey
       end
 
       def history
-        playlist.tracks[Appscript.its.index.lt(offset)].get.map{|x| Song.new(x) }.reverse
+        playlist.tracks[Appscript.its.index.lt(offset)].get.map{|x| Song.find(x) }.reverse
       end
 
       def upcoming
-        playlist.tracks[Appscript.its.index.gt(offset)].get.map{|x| Song.new(x) }
+        playlist.tracks[Appscript.its.index.gt(offset)].get.map{|x| Song.find(x) }
       end
 
       def current
-        Song.new playlist.tracks[offset].get
+        Song.find playlist.tracks[offset].get
       end
     end
   end

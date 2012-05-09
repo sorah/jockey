@@ -29,7 +29,7 @@ module Jockey
       end
 
       def playing
-        Song.new(app.current_track)
+        Song.find(app.current_track)
       end
 
       def prev; app.previous_track; playing; end
@@ -47,7 +47,7 @@ module Jockey
       end
 
       def album(name)
-        result = library.tracks[Appscript.its.album.eq(name)].get.map {|x| Song.new(x) }
+        result = library.tracks[Appscript.its.album.eq(name)].get.map {|x| Song.find(x) }
         result.empty? ? nil : result
       end
 
@@ -56,7 +56,7 @@ module Jockey
       end
 
       def artist(name)
-        songs = library.tracks[Appscript.its.artist.eq(name).or(Appscript.its.album_artist.eq(name))].get.map {|x| Song.new(x) }
+        songs = library.tracks[Appscript.its.artist.eq(name).or(Appscript.its.album_artist.eq(name))].get.map {|x| Song.find(x) }
         return nil if songs.empty?
 
         result = {}
@@ -80,7 +80,7 @@ module Jockey
       end
 
       def search_by_name(*keywords)
-        library.tracks[filter(:name, *keywords)].get.map{|x| Song.new(x) }.sort.reverse
+        library.tracks[filter(:name, *keywords)].get.map{|x| Song.find(x) }.sort.reverse
       end
 
       def search(*keywords)

@@ -5,25 +5,28 @@ module Jockey
   class Song
     class NotFound < Exception; end
 
-    def self.find(*args)
-      begin
-        self.new(*args)
-      rescue NotFound
-        nil
+    class << self
+      def cache; @cache ||= {}; end
+      def cache=(o); @cache = o; end
+
+      def find(o)
+        begin
+          case o
+          when Appscript::Reference
+            id = o.persistent_ID.get
+            cache[id] ||= self.new(id)
+          when String
+            cache[o] ||= self.new(o)
+          end
+        rescue NotFound
+          nil
+        end
       end
     end
 
-    def initialize(o)
-      case o
-      when Appscript::Reference
-        @record = o
-        @id = o.persistent_ID.get
-      when String
-        @id = o
-        @record = Player.library.tracks[Appscript.its.persistent_ID.eq(@id)].get[0]
-      else
-        raise ArgumentError, "should be Appscript::Reference or String"
-      end
+    def initialize(id)
+      @id = id
+      @record = Player.library.tracks[Appscript.its.persistent_ID.eq(@id)].first.get
 
       raise NotFound unless @record
 
@@ -31,11 +34,18 @@ module Jockey
       @artist = @record.artist.get.force_encoding("UTF-8")
       @album = @record.album.get.force_encoding("UTF-8")
       @album_artist = @record.album_artist.get.force_encoding("UTF-8")
+      @artwork_exist = true
+      @artwork = nil
     end
 
+    attr_reader :record, :id, :name, :artist, :album, :album_artist
+
     def artwork
-      return nil if @record.artworks.get.empty?
-      @record.artworks[1].raw_data.get.data
+      return @artwork if @artwork
+      return nil unless @artwork_exist
+      @artwork_exist = !(@record.artworks.get.empty?)
+      return nil unless @artwork_exist
+      @artwork = @record.artworks[1].raw_data.get.data
     end
 
     def to_hash
@@ -47,11 +57,11 @@ module Jockey
     end
 
     def played
-      @record.played_count.get
+      @played ||= @record.played_count.get
     end
 
     def rating
-      @record.rating.get
+      @rating ||= @record.rating.get
     end
 
     def <=>(o)
@@ -69,6 +79,5 @@ module Jockey
       (@id.hash/42)*14
     end
 
-    attr_reader :record, :name, :id, :artist, :album, :album_artist
   end
 end
