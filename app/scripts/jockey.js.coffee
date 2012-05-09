@@ -55,13 +55,13 @@ jQuery ->
       timeout: 60000,
       push: !searching,
       replace: searching,
-      success: -> searching = true
+      success: ->
+        searching = true
     })
-    # FIXME: Error handling
 
   $("#search_form").submit (e) ->
     e.preventDefault()
-    e.blur()
+    $("#search_box").blur()
 
   search_timer = null
   $("#search_box").keyup (e) ->
@@ -70,9 +70,11 @@ jQuery ->
       search_timer = setTimeout(do_search, 500)
 
   $(document).bind 'pjax:start', -> loading(true)
-  $(document).bind 'pjax:end', ->
+  $(document).bind 'pjax:success', ->
+    searching = !!(location.pathname.match(/^\/search/))
     loading(false)
     enque_hook()
+  # FIXME: Error handling
 
 
   $(window).bind 'pjax:popstate', (e) ->
