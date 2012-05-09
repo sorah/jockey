@@ -10,7 +10,8 @@
   %body
     %div#container
       %header
-        %h1 Jockey
+        %h1
+          %a{href: "/", data: {pjax: "#content"}} Jockey
 
       %section#playing
         = haml :song, layout: false, locals: {song: Jockey::Player.playing}

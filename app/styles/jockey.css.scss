@@ -42,10 +42,6 @@ $high_light: #F8B86A;
     a {
       font-size: 30px;
       font-weight: bold;
-      text-decoration: none;
-      &:hover {
-        color: $text_hover;
-      }
     }
   }
 }
@@ -72,14 +68,6 @@ $high_light: #F8B86A;
       font-weight: bold;
       margin-bottom: 5px;
       font-size: 1.1em;
-
-      a {
-        text-decoration: none;
-        color: $text;
-        &:hover {
-          color: $text_hover;
-        }
-      }
     }
 
     .song_artist, .song_album {
@@ -91,7 +79,6 @@ $high_light: #F8B86A;
     }
 
     a {
-      text-decoration: none;
       color: $text_gray;
       &:hover {
         color: $text_gray_hover;
@@ -116,6 +103,14 @@ $high_light: #F8B86A;
     background-color: white;
     text-align: center;
   }
+
+  a {
+    text-decoration: none;
+    &:hover {
+      color: $text_hover;
+    }
+  }
+
 
   #container {
     width: $width;
