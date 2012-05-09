@@ -1,0 +1,13 @@
+%section.album
+  %div.artwork
+    %img{src: "/artworks/#{album.first.id}.png"}
+  %div.right
+    %header
+      %h2=h album.first.album
+    - album.each_with_index do |song, i|
+      %section{class: "song_mini#{i.even? ? " even" : ""}"}
+        %div.middle_wrap
+          %div.song_info
+            %div.song_name=h song.name
+        %div.enque_wrap
+          %a.enque{href: "/enque/#{song.id}", data: {song: song.id}} +
