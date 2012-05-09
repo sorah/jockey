@@ -2,7 +2,6 @@ require 'sinatra'
 require 'haml'
 require 'coffee_script'
 require 'sass'
-require 'cgi'
 require 'ostruct'
 require_relative './models/player'
 require_relative './models/queue'
@@ -32,7 +31,9 @@ module Jockey
       end
 
       def u(str)
-        CGI.escape(str)
+        str.chars.map {|c|
+          /[a-zA-Z0-9\-]/ =~ c ? c : c.bytes.map{|b| "%#{b.to_s(16).upcase}" }.join
+        }.join
       end
     end
   end

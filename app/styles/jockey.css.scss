@@ -50,7 +50,7 @@ $high_light: #F8B86A;
   }
 }
 
-@mixin song($size) {
+@mixin song($size, $width) {
   clear: both;
   height: $size;
   padding-top: 6px;
@@ -60,7 +60,9 @@ $high_light: #F8B86A;
     display: table-cell;
     vertical-align: middle;
     height: $size;
+    width: $width - 140px;
   }
+
 
   @include enque($size, 35px);
 
@@ -128,7 +130,7 @@ $high_light: #F8B86A;
   }
 
   #playing {
-    @include song(200px);
+    @include song(200px, $width);
 
     .song_info {
       .song_name {
@@ -146,7 +148,7 @@ $high_light: #F8B86A;
   }
 
   .song {
-    @include song(80px);
+    @include song(80px, $width);
   }
 
   #search {
@@ -171,7 +173,7 @@ $high_light: #F8B86A;
 
   .album {
     $artwork_size: 120px;
-    @include song(40px);
+    @include song(40px, $width);
     @include artwork($artwork_size);
     .artwork {
       float: left;
@@ -200,7 +202,7 @@ $high_light: #F8B86A;
   }
 
   .artist {
-    @include song(30px);
+    @include song(30px, $width);
   }
 
   #songs, #albums, #artists {

@@ -34,14 +34,12 @@ module Jockey
     end
 
     get '/api/artist/:name' do
-      params[:name].gsub!(/\+/," ")
       artist = Player.artist(params[:name])
       return halt 404 unless artist
       artist.map(&:to_hash).to_json
     end
 
     get '/artworks/album/:name.png', provides: 'image/png' do
-      params[:name].gsub!(/\+/," ")
       if artwork = Player.artwork(params[:name])
         response['Cache-Control'] = 'public, max-age=86400'
         etag "album#{params[:name]}"

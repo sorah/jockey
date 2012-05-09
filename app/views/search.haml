@@ -11,7 +11,7 @@
       %div.middle_wrap
         %div.song_info
           %div.song_name
-            %a{href: "/album/#{URI.encode_www_form_component(album)}", data: {pjax: "#content"}}=h album
+            %a{href: "/album/#{u(album)}", data: {pjax: "#content"}}=h album
 
 %section#artists
   %h2 ARTISTS
@@ -20,4 +20,4 @@
       %div.middle_wrap
         %div.song_info
           %div.song_name
-            %a{href: "/artist/#{URI.encode_www_form_component(artist)}", data: {pjax: "#content"}}=h artist
+            %a{href: "/artist/#{u(artist)}", data: {pjax: "#content"}}=h artist

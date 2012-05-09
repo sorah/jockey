@@ -4,6 +4,8 @@
   %div.right
     %header
       %h2=h album.first.album
+      %div.enque_wrap
+        %a.enque{href: "/enque/album/#{u(album.first.album)}", data: {song: album.map(&:id).join(",")}} +
     - album.each_with_index do |song, i|
       %section{class: "song_mini#{i.even? ? " even" : ""}"}
         %div.middle_wrap

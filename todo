@@ -17,7 +17,6 @@
 
   * link from /search
 
-* pjax
 * cache
 
 * script
@@ -31,3 +30,7 @@
 
 * test
 * loading indicator
+
+DOING:
+
+* album + button

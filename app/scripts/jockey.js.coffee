@@ -5,12 +5,17 @@ jQuery ->
 
   loading = (f) ->
     if f
+      console.log("Loading")
       $("h1").text("Loading")
     else
+      console.log("Loaded")
       $("h1").text("Jockey")
 
   enque_hook = ->
-    $("a[data-pjax]").pjax()
+    $("a[data-pjax]").filter(-> !($(this).data('pjaxed'))).each ->
+      $(this).data('pjaxed',true)
+      $(this).pjax("#content")
+
     $("a.enque").click (e) ->
       e.preventDefault()
       link = this
@@ -44,29 +49,31 @@ jQuery ->
     query = $("#search_box").val()
     return if query.length < 3
 
-    loading true
     $.pjax({
       url: "/search?q=#{encodeURIComponent(query)}",
       container: '#content',
       timeout: 60000,
       push: !searching,
       replace: searching,
-      success: ->
-        searching = true
-        loading false
-        enque_hook()
+      success: -> searching = true
     })
     # FIXME: Error handling
 
   $("#search_form").submit (e) ->
     e.preventDefault()
+    e.blur()
 
   search_timer = null
   $("#search_box").keyup (e) ->
-    if e.keycode == 13
-    else
+    unless e.keycode == 13
       clearTimeout search_timer if search_timer
       search_timer = setTimeout(do_search, 500)
+
+  $(document).bind 'pjax:start', -> loading(true)
+  $(document).bind 'pjax:end', ->
+    loading(false)
+    enque_hook()
+
 
   $(window).bind 'pjax:popstate', (e) ->
     path = e.state.url.replace(location.origin,'')

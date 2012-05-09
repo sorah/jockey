@@ -6,9 +6,9 @@
     %div.song_info
       %div.song_name=h song.name
       %div.song_artist
-        %a{href: "/artist/#{URI.encode_www_form_component(song.artist)}", data: {pjax: '#content'}}=h song.artist
+        %a{href: "/artist/#{u(song.artist)}", data: {pjax: '#content'}}=h song.artist
       %div.song_album
-        %a{href: "/album/#{URI.encode_www_form_component(song.album)}", data: {pjax: '#content'}}=h song.album
+        %a{href: "/album/#{u(song.album)}", data: {pjax: '#content'}}=h song.album
   - if enque ||= false
     %div.enque_wrap
       %a.enque{href: "/enque/#{song.id}", data: {song: song.id}} +
