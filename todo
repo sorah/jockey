@@ -12,10 +12,6 @@
 * browse
 
   * /browse
-  * /album/:name
-  * /artist/:name
-
-  * link from /search
 
 * cache
 
@@ -26,11 +22,6 @@
   * shortcut key
 
 * authorize
-* + button when not in queue page: change text to check?
-
 * test
 * loading indicator
-
-DOING:
-
-* album + button
+* hover to album
