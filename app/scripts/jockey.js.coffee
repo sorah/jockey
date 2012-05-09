@@ -51,7 +51,7 @@ jQuery ->
       return
     return if query == $("#search_box").val()
     query = $("#search_box").val()
-    return if query.length < 3
+    return if query.length < 2
 
     $.pjax({
       url: "/search?q=#{encodeURIComponent(query)}",
@@ -83,6 +83,7 @@ jQuery ->
 
   $(window).bind 'pjax:popstate', (e) ->
     path = e.state.url.replace(location.origin,'')
+    searching = !!(location.pathname.match(/^\/search/))
     switch path
       when "/"
         $("#search_box").val('')
