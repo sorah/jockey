@@ -19,11 +19,17 @@ module Jockey
     end
 
     get '/artist/:name' do
-      haml_pjax :albums, layout: :layout, locals: {albums: @albums}
+      artist = Player.artist(params[:name].gsub(/\+/,' '))
+      if artist
+        albums = artist.values
+        haml_pjax :albums, layout: :layout, locals: {albums: albums}
+      else
+        halt 404
+      end
     end
 
     get '/album/:name' do
-      @album = Player.album(params[:name])
+      @album = Player.album(params[:name].gsub(/\+/,' '))
       if @album
         haml_pjax :album, layout: :layout, locals: {album: @album}
       else

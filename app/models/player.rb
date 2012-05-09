@@ -56,12 +56,14 @@ module Jockey
       end
 
       def artist(name)
-        result = []
-        result.push(*(library.tracks[Appscript.its.artist.eq(name)].get.map {|x| Song.new(x) }))
-        result.push(*(library.tracks[Appscript.its.album_artist.eq(name)].get.map {|x| Song.new(x) }))
-        result.uniq!
+        songs = library.tracks[Appscript.its.artist.eq(name).or(Appscript.its.album_artist.eq(name))].get.map {|x| Song.new(x) }
+        return nil if songs.empty?
 
-        result.empty? ? nil : result
+        result = {}
+        songs.each do |song|
+          (result[song.album] ||= []) << song
+        end
+        result
       end
 
       def artwork(album_name)
