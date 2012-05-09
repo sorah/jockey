@@ -10,9 +10,12 @@ jQuery ->
       $("h1").text("Jockey")
 
   enque_hook = ->
+    $("a[data-pjax]").pjax()
     $("a.enque").click (e) ->
       e.preventDefault()
-      $.post '/api/enque', {id: $(this).data('song')}
+      link = this
+      $.post '/api/enque', {id: $(this).data('song')}, ->
+        $(link).text("✔").attr('href',null)
   enque_hook()
 
   realtime = new EventSource("/api/realtime?html=1")
@@ -20,6 +23,7 @@ jQuery ->
   $(realtime).bind 'playing', (e) ->
     json = JSON.parse(e.originalEvent.data)
     $("#playing").html json.html
+    $("#playing a[data-pjax]").pjax()
 
   $(realtime).bind 'upcoming', (e) ->
     json = JSON.parse(e.originalEvent.data)
@@ -75,5 +79,4 @@ jQuery ->
         $("#search_box").val('')
         $("#content").load '/history?no_layout=1', enque_hook
         searching = false
-
 

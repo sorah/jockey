@@ -10,7 +10,8 @@
         %img{src: "/artworks/album/#{u album}.png"}
       %div.middle_wrap
         %div.song_info
-          %div.song_name=h album
+          %div.song_name
+            %a{href: "/album/#{URI.encode_www_form_component(album)}", data: {pjax: "#content"}}=h album
 
 %section#artists
   %h2 ARTISTS
@@ -18,4 +19,5 @@
     %section{class: "artist#{i.even? ? " even" : ""}"}
       %div.middle_wrap
         %div.song_info
-          %div.song_name=h artist
+          %div.song_name
+            %a{href: "/artist/#{URI.encode_www_form_component(artist)}", data: {pjax: "#content"}}=h artist

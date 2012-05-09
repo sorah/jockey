@@ -18,8 +18,17 @@ module Jockey
       haml_pjax :browse, layout: :layout
     end
 
+    get '/artist/:name' do
+      haml_pjax :albums, layout: :layout, locals: {albums: @albums}
+    end
+
     get '/album/:name' do
-      haml_pjax :album, layout: :layout, locals: {album: @album}
+      @album = Player.album(params[:name])
+      if @album
+        haml_pjax :album, layout: :layout, locals: {album: @album}
+      else
+        halt 404
+      end
     end
 
     get '/search' do

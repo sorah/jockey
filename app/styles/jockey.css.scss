@@ -54,21 +54,9 @@ body {
   }
 }
 
-@mixin song($size) {
-  clear: both;
-  height: $size;
-  padding-top: 6px;
-  padding-bottom: 6px;
-
-  .middle_wrap {
-    display: table-cell;
-    vertical-align: middle;
-    height: $size;
-  }
-
+@mixin enque($size, $button_height) {
   .enque_wrap {
     position: relative;
-    $button_height: 35px;
     height: $button_height;
     text-align: right;
     bottom: ($size/2)+($button_height/2);
@@ -85,6 +73,23 @@ body {
     }
   }
 
+
+}
+
+@mixin song($size) {
+  clear: both;
+  height: $size;
+  padding-top: 6px;
+  padding-bottom: 6px;
+
+  .middle_wrap {
+    display: table-cell;
+    vertical-align: middle;
+    height: $size;
+  }
+
+  @include enque($size, 35px);
+
   .song_info {
     margin-left: 15px;
 
@@ -92,6 +97,14 @@ body {
       font-weight: bold;
       margin-bottom: 5px;
       font-size: 1.1em;
+
+      a {
+        text-decoration: none;
+        color: $text;
+        &:hover {
+          color: $text_hover;
+        }
+      }
     }
 
     .song_artist, .song_album {
@@ -100,6 +113,14 @@ body {
 
     .song_album {
       display: none;
+    }
+
+    a {
+      text-decoration: none;
+      color: $text_gray;
+      &:hover {
+        color: $text_gray_hover;
+      }
     }
   }
 
@@ -151,11 +172,36 @@ body {
 }
 
 .album {
-  @include song(50px);
+  $artwork_size: 120px;
+  @include song(40px);
+  @include artwork($artwork_size);
+  .artwork {
+    float: left;
+  }
+  h2 {
+    margin-left: 15px;
+  }
+  .right {
+    margin-left: $artwork_size + 15px;
+
+    .song_mini {
+      height: 40px;
+    }
+
+    @include enque(40px, 30px);
+    .enque {
+      font-size: 24px ! important;
+    }
+  }
 }
 
 .artist {
   @include song(30px);
 }
 
-
+#songs, #albums, #artists {
+  h2 {
+    margin: 15px;
+    font-size: 95%;
+  }
+}
