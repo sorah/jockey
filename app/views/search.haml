@@ -5,7 +5,7 @@
 %section#albums
   %h2 ALBUMS
   - @result[:albums].each_with_index do |album, i|
-    %section{class: "album#{i.even? ? " even" : ""}"}
+    %section{class: "album_mini#{i.even? ? " even" : ""}"}
       %div.artwork
         %img{src: "/artworks/album/#{u album}.png"}
       %div.middle_wrap

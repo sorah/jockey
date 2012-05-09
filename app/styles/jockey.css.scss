@@ -63,7 +63,6 @@ $high_light: #F8B86A;
     width: $width - 140px;
   }
 
-
   @include enque($size, 35px);
 
   .song_info {
@@ -171,6 +170,12 @@ $high_light: #F8B86A;
     }
   }
 
+  .album_mini {
+    $artwork_size: 40px;
+    @include song(40px, $width);
+    @include artwork($artwork_size);
+  }
+
   .album {
     $artwork_size: 120px;
     @include song(40px, $width);
@@ -178,10 +183,7 @@ $high_light: #F8B86A;
     .artwork {
       float: left;
     }
-    h2 {
-      margin-left: 15px;
-      margin-top: 5px;
-    }
+
     .right {
       float: left;
       margin-left: 5px;
@@ -193,8 +195,24 @@ $high_light: #F8B86A;
       }
 
       @include enque(40px, 30px);
+      header {
+        margin-left: 15px;
+        margin-top: 5px;
+        margin-bottom: -15px;
+
+        h2 {
+          margin: 0;
+        }
+
+        .enque_wrap {
+          top: -35px;
+        }
+      }
+
       .enque {
         font-size: 24px ! important;
+
+
       }
       margin-bottom: 20px;
     }
