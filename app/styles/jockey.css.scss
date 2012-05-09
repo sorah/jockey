@@ -1,7 +1,5 @@
 
 /* http://colorschemedesigner.com/#3u21LsOsOmSJD */
-
-//$back: #A0C9E1;
 $back: #F4FBFF;
 $text: #061D2B;
 $text_hover: lighten($text, 10%);
@@ -12,31 +10,9 @@ $base: #166492;
 $high: #E68917;
 $high_light: #F8B86A;
 
-* {
-  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-  color: $text;
-}
 
-pre {
-  font-family: 'Monaco', monospace;
-}
 
-body {
-  background-color: white;
-  text-align: center;
-}
-
-#container {
-  width: 750px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: left;
-}
-
-.even {
-  background-color: $back;
-}
-
+//$back: #A0C9E1;
 @mixin artwork($size) {
   .artwork {
     width: $size;
@@ -72,8 +48,6 @@ body {
       }
     }
   }
-
-
 }
 
 @mixin song($size) {
@@ -127,81 +101,114 @@ body {
   @include artwork($size);
 }
 
-#playing {
-  @include song(200px);
-
-  .song_info {
-    .song_name {
-      font-size: 1.6em;
-    }
-
-    .song_album {
-      display: block;
-    }
-
-    .song_artist, .song_album {
-      font-size: 1.1em;
-    }
+@mixin jockey($width) {
+  * {
+    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    color: $text;
   }
-}
 
+  pre {
+    font-family: 'Monaco', monospace;
+  }
 
-
-.song {
-  @include song(80px);
-}
-
-#search {
-  background-color: $dark;
-  padding: 5px 5px;
-  margin-top: 10px;
-
-  #search_form {
-    margin: 0; padding: 0;
+  body {
+    background-color: white;
     text-align: center;
   }
 
-  #search_box {
-    width: 99%;
-    margin: 0;
-    border: none;
-    font-size: 1.05em;
-    padding: 5px 3px;
-    border-radius: 3px;
+  #container {
+    width: $width;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
   }
-}
 
-.album {
-  $artwork_size: 120px;
-  @include song(40px);
-  @include artwork($artwork_size);
-  .artwork {
-    float: left;
+  .even {
+    background-color: $back;
   }
-  h2 {
-    margin-left: 15px;
-  }
-  .right {
-    margin-left: $artwork_size + 15px;
 
-    .song_mini {
-      height: 40px;
-    }
+  #playing {
+    @include song(200px);
 
-    @include enque(40px, 30px);
-    .enque {
-      font-size: 24px ! important;
+    .song_info {
+      .song_name {
+        font-size: 1.6em;
+      }
+
+      .song_album {
+        display: block;
+      }
+
+      .song_artist, .song_album {
+        font-size: 1.1em;
+      }
     }
   }
-}
 
-.artist {
-  @include song(30px);
-}
+  .song {
+    @include song(80px);
+  }
 
-#songs, #albums, #artists {
-  h2 {
-    margin: 15px;
-    font-size: 95%;
+  #search {
+    background-color: $dark;
+    padding: 5px 5px;
+    margin-top: 10px;
+
+    #search_form {
+      margin: 0; padding: 0;
+      text-align: center;
+    }
+
+    #search_box {
+      width: 99%;
+      margin: 0;
+      border: none;
+      font-size: 1.05em;
+      padding: 5px 3px;
+      border-radius: 3px;
+    }
+  }
+
+  .album {
+    $artwork_size: 120px;
+    @include song(40px);
+    @include artwork($artwork_size);
+    .artwork {
+      float: left;
+    }
+    h2 {
+      margin-left: 15px;
+      margin-top: 5px;
+    }
+    .right {
+      float: left;
+      margin-left: 5px;
+      width: $width - 15px - 5px - $artwork_size;
+
+      .song_mini {
+        width: 100%;
+        height: 40px;
+      }
+
+      @include enque(40px, 30px);
+      .enque {
+        font-size: 24px ! important;
+      }
+      margin-bottom: 20px;
+    }
+    clear: both;
+  }
+
+  .artist {
+    @include song(30px);
+  }
+
+  #songs, #albums, #artists {
+    h2 {
+      margin: 15px;
+      font-size: 95%;
+    }
   }
 }
+
+@include jockey(750px);
