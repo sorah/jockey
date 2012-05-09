@@ -45,6 +45,10 @@ jQuery ->
     enque_hook()
 
   do_search = ->
+    if $("#search_box").val().length == 0 && searching
+      searching = false
+      history.back()
+      return
     return if query == $("#search_box").val()
     query = $("#search_box").val()
     return if query.length < 3
