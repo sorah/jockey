@@ -9,9 +9,16 @@
     %title Jockey
   %body
     %div#container
-      %header
+      %header#head
         %h1
           %a{href: "/", data: {pjax: "#content"}} Jockey
+        %nav
+          %a.notification{href: "#"}
+            %img{src: "/images/notification_off.svg"}
+          %a{href: "/", data: {pjax: "#content"}}
+            %img{src: "/images/queue.svg"}
+          %a{href: "/history", data: {pjax: "#content"}}
+            %img{src: "/images/history.svg"}
 
       %section#playing
         = haml :song, layout: false, locals: {song: Jockey::Player.playing}
