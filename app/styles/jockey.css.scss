@@ -90,8 +90,9 @@ $high_light: #F8B86A;
 
 @mixin jockey($width) {
   * {
-    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-    color: $text;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-weight: 300;
+  color: $text;
   }
 
   pre {
