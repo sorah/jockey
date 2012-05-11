@@ -75,7 +75,7 @@ Jockey is written in Ruby. 1.9.2 or higher is required.
 
 * Why use Redis?
 
-  * I don't think play doesn't need redis.
+  * I think play doesn't need redis.
 
 I've wanted just control my iTunes DJ, so conside using play if you want more feature.
 
