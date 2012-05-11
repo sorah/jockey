@@ -1,5 +1,6 @@
 jQuery ->
   searching = !!(location.pathname.match(/^\/search/))
+  notification = false
   init_path = location.pathname
   query = null
 
@@ -11,7 +12,7 @@ jQuery ->
       console.log("Loaded")
       $("h1").text("Jockey")
 
-  enque_hook = ->
+  set_hooks = ->
     $("a[data-pjax]").filter(-> !($(this).data('pjaxed'))).each ->
       $(this).data('pjaxed',true)
       $(this).pjax("#content")
@@ -21,7 +22,7 @@ jQuery ->
       link = this
       $.post '/api/enque', {id: $(this).data('song')}, ->
         $(link).text("✔").attr('href',null)
-  enque_hook()
+  set_hooks()
 
   realtime = new EventSource("/api/realtime?html=1")
 
@@ -29,20 +30,52 @@ jQuery ->
     json = JSON.parse(e.originalEvent.data)
     $("#playing").html json.html
     $("#playing a[data-pjax]").pjax()
+    if notification
+      n = window.webkitNotifications.createNotification(
+        $("#playing .artwork img").attr('src'), $("#playing .song_name").text(), $("#playing .song_artist").text())
+      f = -> n.cancel()
+      n.ondisplay = -> setTimeout(f, 2000)
+      n.show()
 
   $(realtime).bind 'upcoming', (e) ->
     json = JSON.parse(e.originalEvent.data)
     return if searching
     return unless location.pathname == "/"
     $("#content").html json.html
-    enque_hook()
+    set_hooks()
 
   $(realtime).bind 'history', (e) ->
     json = JSON.parse(e.originalEvent.data)
     return if searching
     return unless location.pathname == "/history"
     $("#content").html json.html
-    enque_hook()
+    set_hooks()
+
+  if window.webkitNotifications
+    $(".notification").show()
+
+    notification_turn = (flag) ->
+      if flag
+        if window.webkitNotifications.checkPermission() == 0
+          $(".notification img").attr('src','/images/notification_on.svg')
+          window.localStorage.jockify = "true"
+          notification = true
+        else
+          window.webkitNotifications.requestPermission ->
+            notification_turn(true) if window.webkitNotifications.checkPermission() == 0
+      else
+        $(".notification img").attr('src','/images/notification_off.svg')
+        notification = false
+
+    if window.localStorage.jockify == "true"
+      notification_turn(true)
+
+    $(".notification img").click (e) ->
+      e.preventDefault()
+      if notification
+        notification_turn(false)
+      else
+        notification_turn(true)
 
   do_search = ->
     if $("#search_box").val().length == 0 && searching
@@ -77,9 +110,8 @@ jQuery ->
   $(document).bind 'pjax:success', ->
     searching = !!(location.pathname.match(/^\/search/))
     loading(false)
-    enque_hook()
+    set_hooks()
   # FIXME: Error handling
-
 
   $(window).bind 'pjax:popstate', (e) ->
     path = e.state.url.replace(location.origin,'')
@@ -87,10 +119,10 @@ jQuery ->
     switch path
       when "/"
         $("#search_box").val('')
-        $("#content").load '/?no_layout=1', enque_hook
+        $("#content").load '/?no_layout=1', set_hooks
         searching = false
       when "/history"
         $("#search_box").val('')
-        $("#content").load '/history?no_layout=1', enque_hook
+        $("#content").load '/history?no_layout=1', set_hooks
         searching = false
 
