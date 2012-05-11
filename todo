@@ -15,12 +15,12 @@
 
 * script
 
-  * notification
   * select
   * shortcut key
 
 * authorize
-* test
 * loading indicator
 * hover to album
 * remove from queue
+* refactor scss
+* test
