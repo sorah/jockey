@@ -13,6 +13,9 @@ jQuery ->
       $("h1").text("Jockey")
 
   set_hooks = ->
+    unless searching
+      $("#search_box").val('')
+
     $("a[data-pjax]").filter(-> !($(this).data('pjaxed'))).each ->
       $(this).data('pjaxed',true)
       $(this).pjax("#content")
@@ -22,6 +25,7 @@ jQuery ->
       link = this
       $.post '/api/enque', {id: $(this).data('song')}, ->
         $(link).text("✔").attr('href',null)
+    loading(false)
   set_hooks()
 
   realtime = new EventSource("/api/realtime?html=1")
@@ -114,13 +118,13 @@ jQuery ->
   $(window).bind 'pjax:popstate', (e) ->
     path = e.state.url.replace(location.origin,'')
     searching = !!(location.pathname.match(/^\/search/))
+
     switch path
       when "/"
-        $("#search_box").val('')
         $("#content").load '/?no_layout=1', set_hooks
         searching = false
       when "/history"
-        $("#search_box").val('')
         $("#content").load '/history?no_layout=1', set_hooks
         searching = false
+
 
