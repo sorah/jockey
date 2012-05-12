@@ -65,6 +65,7 @@ jQuery ->
             notification_turn(true) if window.webkitNotifications.checkPermission() == 0
       else
         $(".notification img").attr('src','/images/notification_off.svg')
+        window.localStorage.jockify = "false"
         notification = false
 
     if window.localStorage.jockify == "true"
