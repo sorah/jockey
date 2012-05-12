@@ -73,10 +73,7 @@ jQuery ->
 
     $(".notification img").click (e) ->
       e.preventDefault()
-      if notification
-        notification_turn(false)
-      else
-        notification_turn(true)
+      notification_turn(!notification)
 
   do_search = ->
     if $("#search_box").val().length == 0 && searching
