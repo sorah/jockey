@@ -52,7 +52,7 @@ Jockey is written in Ruby. 1.9.2 or higher is required.
 
 <http://localhost:9292/>
 
-(__NOTE:__ we should do `thin -R config.ru` instead of `rackup` because of Sinatra's bug.)
+__NOTE:__ we should do `thin -R config.ru` instead of `rackup` because of Sinatra's bug.
 
 ## Features
 
@@ -75,9 +75,9 @@ Jockey is written in Ruby. 1.9.2 or higher is required.
 
 * Why use Redis?
 
-  * I think play doesn't need redis.
+  * I don't think play needs redis.
 
-I've wanted just control my iTunes DJ, so conside using play if you want more feature.
+I've wanted just control my iTunes DJ, so consider using play if you want more features.
 
 But, some feature requests may be accepted. give me pull request :)
 
